@@ -22,6 +22,7 @@ public class DataCreation : MonoBehaviour
     public float maxZCoordinate;
     public int minId;
     public int maxId;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

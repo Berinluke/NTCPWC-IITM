@@ -8,8 +8,8 @@ public class LevelManager : MonoBehaviour
     public float proximityWarningThreshold;
     public CameraController cameraController;
     public RobotCreation robotCreation;
-    public GameObject robotPrefab;
-
+    //public GameObject robotPrefab;
+    private TelemetryData reusableData = new TelemetryData();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -24,20 +24,20 @@ public class LevelManager : MonoBehaviour
     }
     public void ReceiveJson(string incomingJson)
     {
-        TelemetryData newData = JsonUtility.FromJson<TelemetryData>(incomingJson);
-        if (string.IsNullOrEmpty(newData.unitId) || newData.speed < 0)
+        JsonUtility.FromJsonOverwrite(incomingJson,reusableData);
+        if (string.IsNullOrEmpty(reusableData.unitId) || reusableData.speed < 0)
         {
             //Debug.Log($"Invalid Data for{newData.unitId}. Droping Record.");
             return;
         }
-        if (robotDictionary.ContainsKey(newData.unitId))
+        if (robotDictionary.ContainsKey(reusableData.unitId))
         {
-            robotDictionary[newData.unitId].UpdateRobotData(newData);
+            robotDictionary[reusableData.unitId].UpdateRobotData(reusableData);
         }
         else
         {
 
-            SpawnNewRobot(newData);
+            SpawnNewRobot(reusableData);
         }
     }
     void SpawnNewRobot(TelemetryData Data)

@@ -27,6 +27,8 @@ public class SelectionManager : MonoBehaviour
             {
 
                 selectedObject = hit.collider.gameObject;
+                RobotController robot=selectedObject.GetComponent<RobotController>();
+                UIManager.instance.SelectRobot(robot);
                 LevelManager.instance.cameraController.FollowSelectedObject(selectedObject);
                 //Debug.Log("Selected Object: " + selectedObject.name);
             }

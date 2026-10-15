@@ -14,13 +14,7 @@ public class RobotController : MonoBehaviour
     public bool istargetReched;
     public float StopThreshold;
     public float StateWaitTime;
-    //public bool isDataNotRecived;
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    public GameObject pinPoint;
     void Update()
     {
         RobotMovement();
@@ -71,4 +65,12 @@ public class RobotController : MonoBehaviour
             //Debug.Log(Status+ gameObject.name);
         }
     }
+    public void SetSelected(bool isActive)
+    {
+        if(pinPoint!=null)
+        {
+            pinPoint.SetActive(isActive);
+        }
+    }
+    
 }

@@ -4,6 +4,7 @@ public class RestrictZone : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private int targetLayer;
+    public string ZoneId;
     void Start()
     {
         targetLayer = LayerMask.NameToLayer("Water");
@@ -12,18 +13,20 @@ public class RestrictZone : MonoBehaviour
     {
         if (other.gameObject.layer == targetLayer)
         {
-            Debug.Log("Robot entered the restrict zone" + other.gameObject.name);
+            RobotController robot = other.GetComponent<RobotController>();
+            //Debug.Log("Robot entered the restrict zone" + other.gameObject.name);
+            UIManager.instance.ShowZoneWarning(robot.unitId, ZoneId);
 
-            // You can add additional logic here, such as stopping the robot or triggering an event.
         }
     }
     public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == targetLayer)
         {
-            Debug.Log("Robot exited the restrict zone" + other.gameObject.name);
+            RobotController robot = other.GetComponent<RobotController>();
+            //Debug.Log("Robot exited the restrict zone" + other.gameObject.name);
+            UIManager.instance.HideZoneWarning(robot.unitId, ZoneId);
 
-            // You can add additional logic here, such as resuming the robot's movement or triggering an event.
         }
     }
 }

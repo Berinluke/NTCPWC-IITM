@@ -27,6 +27,7 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
+            UIManager.instance.HideRobotDetail();
             SwitchCameraMode(CameraMode.Free);
         }
         if (currentMode == CameraMode.Free)
