@@ -31,7 +31,7 @@ public class RobotCreation : MonoBehaviour
         if (robotPool.Count > 0)
         {
             GameObject robot = robotPool.Dequeue(); // Instantly pull the first one
-            robot.SetActive(true);
+            //robot.SetActive(true);
             return robot;
         }
         return null;

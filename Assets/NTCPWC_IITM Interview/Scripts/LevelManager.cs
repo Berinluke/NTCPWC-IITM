@@ -49,8 +49,9 @@ public class LevelManager : MonoBehaviour
         {
             poolRobot.transform.position = startPos;
             RobotController newRobot = poolRobot.GetComponent<RobotController>();
-            newRobot.UpdateRobotData(Data);
             robotDictionary.Add(Data.unitId, newRobot);
+            newRobot.UpdateRobotData(Data);
+            poolRobot.SetActive(true);
         }
         else
         {

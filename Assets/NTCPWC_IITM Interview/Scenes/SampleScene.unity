@@ -244,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RobotCreation
   robotPrefab: {fileID: 7737821399188240908, guid: b4952c0b2b59f3247860539a8812ed30, type: 3}
   spawnParent: {fileID: 1325612600}
-  numberOfRobots: 60
+  numberOfRobots: 100
 --- !u!1 &210380266
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +452,7 @@ MonoBehaviour:
   minZCoordinate: 10
   maxZCoordinate: 100
   minId: 0
-  maxId: 60
+  maxId: 100
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

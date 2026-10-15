@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class RobotController : MonoBehaviour
@@ -15,15 +16,23 @@ public class RobotController : MonoBehaviour
     public float StopThreshold;
     public float StateWaitTime;
     public GameObject pinPoint;
+    Vector3 targetPosition;
+    Vector3 moveDirection;
+    Quaternion targetRotation;
     void Update()
     {
-        RobotMovement();
-        checkTargetReached();
+        // if (!istargetReched)
+        // {
+            RobotMovement();
+        //}
+
+
         /* if (istargetReched && !isDataNotRecived)
         {
             Debug.LogError("funtion calling" + gameObject.name);
             CheckWaitingTime();
         } */
+        checkTargetReached();
         CheckWaitingTime();
     }
     public void UpdateRobotData(TelemetryData incomingData)
@@ -41,11 +50,21 @@ public class RobotController : MonoBehaviour
     }
     public void RobotMovement()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(xCoordinate, transform.position.y, zCoordinate), speed * Time.deltaTime);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, heading, 0), RotationSpeed * Time.deltaTime);
+        targetPosition = new Vector3(xCoordinate, transform.position.y, zCoordinate);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+        moveDirection = targetPosition - transform.position;
+
+        if (moveDirection.sqrMagnitude > 0.001f)
+        {
+            targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+        }
+        
     }
     public void checkTargetReached()
     {
+        istargetReched = false;
         Vector3 target = new Vector3(xCoordinate, 0, zCoordinate);
         // float distanceToTaget = Vector3.Distance(transform.position, target);
         float sqrDistance = (transform.position - target).sqrMagnitude;
@@ -67,10 +86,10 @@ public class RobotController : MonoBehaviour
     }
     public void SetSelected(bool isActive)
     {
-        if(pinPoint!=null)
+        if (pinPoint != null)
         {
             pinPoint.SetActive(isActive);
         }
     }
-    
+
 }
