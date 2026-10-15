@@ -46,7 +46,8 @@ public class LevelManager : MonoBehaviour
         GameObject poolRobot = robotCreation.GetRobot();
 
         if (poolRobot != null)
-        {
+        {   
+            poolRobot.name=Data.name;
             poolRobot.transform.position = startPos;
             RobotController newRobot = poolRobot.GetComponent<RobotController>();
             robotDictionary.Add(Data.unitId, newRobot);

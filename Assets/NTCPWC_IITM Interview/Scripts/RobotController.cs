@@ -21,10 +21,10 @@ public class RobotController : MonoBehaviour
     Quaternion targetRotation;
     void Update()
     {
-        // if (!istargetReched)
-        // {
+        if (!istargetReched)
+         {
             RobotMovement();
-        //}
+        }
 
 
         /* if (istargetReched && !isDataNotRecived)
@@ -47,6 +47,7 @@ public class RobotController : MonoBehaviour
         Status = "Normal";
         // isDataNotRecived = false;
         StateWaitTime = 0f;
+        istargetReched=false;
     }
     public void RobotMovement()
     {

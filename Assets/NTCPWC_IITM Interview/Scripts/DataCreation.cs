@@ -22,10 +22,20 @@ public class DataCreation : MonoBehaviour
     public float maxZCoordinate;
     public int minId;
     public int maxId;
-    
+    TelemetryData data = new TelemetryData();
+    private string [] precalculatedUnitIds;
+    private string [] precalculatedNames;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        int arraySize= maxId + 1;
+        precalculatedUnitIds = new string[arraySize];
+        precalculatedNames = new string[arraySize];
+        for(int i = 0 ;i<=maxId;i++)
+        {
+            precalculatedUnitIds[i]="Bot_"+ i.ToString("000");
+            precalculatedNames[i]="Robot" + i;
+        }
         StartCoroutine(GenerateDataRoutine());
     }
 
@@ -41,10 +51,10 @@ public class DataCreation : MonoBehaviour
     }
     void CreatAndSendJsonData()
     {
-        TelemetryData data = new TelemetryData();
+        
         int randomId = Random.Range(minId, maxId);
-        data.unitId = "BOT_" + randomId.ToString("000");
-        data.name = "Robot" + randomId;
+        data.unitId = precalculatedUnitIds[randomId];
+        data.name = precalculatedNames[randomId];
         data.timestamp = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
         data.x = Random.Range(minXCoordinate, maxXCoordinate);
         data.z = Random.Range(minZCoordinate, maxZCoordinate);
